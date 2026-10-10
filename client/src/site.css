@@ -62,6 +62,11 @@
     line-height: 1.15;
 }
 
+/* Big headline that introduces the galleries on the home page. */
+.home-trust-title {
+    margin: 8px 0 0;
+}
+
 .site-select {
     height: 42px;
     padding: 0 12px;

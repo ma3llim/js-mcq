@@ -47,6 +47,17 @@ export const communityLinks = [
   { href: 'https://medium.com/@contactmanoharbatra', icon: FaMedium, value: '120+', label: 'Followers', tone: 'neutral' },
 ]
 
+// Creators and industry leaders, shown as sliding cards under the "Trusted by" headline.
+export const peopleMet = [
+  { image: '/images/creators/ajay_suneja.jpeg', name: 'Ajay Suneja', description: '6 Lakhs YouTube subscribers' },
+  { image: '/images/creators/anmol_garg.jpeg', name: 'Anmol Garg', description: 'Corporate Standup Comedian' },
+  { image: '/images/creators/piyush.jpeg', name: 'Piyush - Roadside Coder', description: '2 Lakhs YouTube subscribers' },
+  { image: '/images/corporate/prasanna.jpeg', name: 'Prasanna M Sridhara', description: 'Associate Partner Digital & iX PAL - Distribution Sector', logo: '/images/companyLogos/ibm.jpg', company: 'IBM' },
+  { image: '/images/corporate/sufiya_khan.PNG', name: 'Sufiya Khan', description: 'Associate Partner - Front End Exp', logo: '/images/companyLogos/ibm.jpg', company: 'IBM' },
+  { image: '/images/corporate/amit_prashant.jpeg', name: 'Prashant + Amit', description: 'Director', logo: '/images/companyLogos/qad.jpg', company: 'QAD' },
+  { image: '/images/creators/striver.jpeg', name: 'Raj Vikramaditya', description: '10 Lakhs YouTube subscribers' },
+]
+
 export const collegeVisits = [
   { image: '/images/collegeVisits/rkgit1.jpeg', title: 'RKGIT, Ghaziabad' },
   { image: '/images/collegeVisits/iiest1.jpeg', title: 'IIEST, Shibpur, Kolkata' },
