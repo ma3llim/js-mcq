@@ -1,4 +1,4 @@
-import { Link } from '../link'
+import { Link } from 'react-router'
 import './StatusCard.css'
 
 export function StatusCard({ title, message, isLoading = false, isError = false, onRetry, homeLink = false }) {
