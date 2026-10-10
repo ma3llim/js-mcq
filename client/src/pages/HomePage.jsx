@@ -1,29 +1,36 @@
-import { useCatalog } from '../catalogContext.js'
-import { Overview } from '../components/overview'
-import { countLabel } from '../format.js'
-import { buildPath } from '../paths.js'
+import { certifications, collegeVisits, corporateAppreciations } from '../data/siteContent.js'
+import { AboutSection } from '../components/home/aboutSection'
+import { CommunityStrip } from '../components/home/communityStrip'
+import { FeedbackWall } from '../components/home/feedbackWall'
+import { GallerySection } from '../components/home/gallerySection'
+import { HeroSection } from '../components/home/heroSection'
+import '../site.css'
 
+// Landing page shown at `/`, section by section, inside the app shell.
 export function HomePage() {
-  const { technologies } = useCatalog()
   return (
-    <Overview
-      title="Study topics"
-      description="Pick a technology and section, then work through its topics."
-      emptyTitle="No technologies available yet"
-      emptyMessage="Technologies will appear here once they're created."
-      cards={technologies.map((technology) => ({
-        id: technology.id,
-        name: technology.name,
-        badgeName: technology.name,
-        meta: countLabel(technology.sections.length, 'section'),
-        emptyNote: 'No sections yet.',
-        links: technology.sections.map((section) => ({
-          id: section.id,
-          name: section.name,
-          meta: `${countLabel(section.topics.length, 'topic')} · ${countLabel(section.questionCount, 'question')}`,
-          to: buildPath(technology.slug, section.slug),
-        })),
-      }))}
-    />
+    <div className="site">
+      <HeroSection />
+      <CommunityStrip />
+      <GallerySection title="College Visits" items={collegeVisits} showCaptions cardWidth={280} />
+      <GallerySection
+        title="Corporate Appreciations & Awards"
+        items={corporateAppreciations}
+        filterLabel="Filter by organisation"
+        zoomable
+        cardWidth={300}
+        imageFit="contain"
+      />
+      <GallerySection
+        title="Certifications"
+        items={certifications}
+        filterLabel="Filter by issuer"
+        zoomable
+        cardWidth={300}
+        imageFit="contain"
+      />
+      <FeedbackWall />
+      <AboutSection />
+    </div>
   )
 }

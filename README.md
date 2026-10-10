@@ -28,7 +28,7 @@ The Vite apps proxy `/api` requests to the backend during development. For API d
 
 Content is organised as **technology › section › topic › question**. The learner client reads it from the backend's public API; admins manage it in the admin app. Topics and questions can be marked as premium (`isPaid`), in which case the API withholds the locked content and the learner app shows a membership prompt.
 
-Learner URLs follow the same structure: `/:technology/:section/:topic` (for example `/javascript/output-based/closures`).
+The learner client opens on the home page (`/`), with Courses (`/courses`) and Podcasts (`/podcasts`) in the same sidebar layout. Practice URLs follow the content structure: `/:technology/:section/:topic` (for example `/javascript/output-based/closures`).
 
 Administrators register from the admin app's **Request access** screen. New accounts stay inactive until an existing administrator approves them on the **Administrators** page. On an empty database, activate the first account once in MongoDB; see [backend/README.md](./backend/README.md#administrator-accounts).
 

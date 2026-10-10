@@ -1,16 +1,26 @@
 import { Suspense, useEffect, useRef, useState } from 'react'
-import { Link, Outlet, useLocation, useParams } from 'react-router'
-import { ChevronRight, Menu, Moon, Sun } from 'lucide-react'
+import { Link, NavLink, Outlet, useLocation, useParams } from 'react-router'
+import { BookOpen, ChevronRight, Menu, Mic, Moon, Sun } from 'lucide-react'
 import { fetchCatalog } from './api.js'
 import { buildPath } from './paths.js'
 import { useTheme } from './useTheme.js'
+import { AnnouncementBar } from './components/announcementBar'
 import { Sidebar } from './components/sidebar'
 import { StatusCard } from './components/statusCard'
 
-const appName = 'JS MCQ Practice'
+const appName = 'Manohar Batra'
 
-function Breadcrumbs({ slugs, technology, section, topic }) {
-  const crumbs = [{ label: 'Study topics', to: '/' }]
+// Pages that aren't part of the topic catalog, with their breadcrumb/title label.
+const staticPages = { '/courses': 'Courses', '/podcasts': 'Podcasts' }
+
+const topbarLinks = [
+  { to: '/courses', label: 'Courses', icon: BookOpen },
+  { to: '/podcasts', label: 'Podcasts', icon: Mic },
+]
+
+function Breadcrumbs({ pathname, slugs, technology, section, topic }) {
+  const crumbs = [{ label: 'Home', to: '/' }]
+  if (staticPages[pathname]) crumbs.push({ label: staticPages[pathname], to: pathname })
   if (slugs.technologySlug) {
     crumbs.push({ label: technology?.name ?? slugs.technologySlug, to: buildPath(slugs.technologySlug) })
   }
@@ -68,8 +78,9 @@ export function AppLayout() {
   const topic = section?.topics.find(({ slug }) => slug === slugs.topicSlug) ?? null
 
   useEffect(() => {
-    document.title = [topic?.name, section?.name, technology?.name, appName].filter(Boolean).join(' · ')
-  }, [technology, section, topic])
+    const parts = technology ? [topic?.name, section?.name, technology.name] : [staticPages[pathname]]
+    document.title = [...parts, appName].filter(Boolean).join(' · ')
+  }, [pathname, technology, section, topic])
 
   // Pages scroll inside the content area, so reset it when the route changes.
   useEffect(() => {
@@ -90,10 +101,12 @@ export function AppLayout() {
     setCatalogRequestId((id) => id + 1)
   }
 
+  // Home, courses and podcasts don't depend on the catalog, so only topic pages wait for it.
+  const needsCatalog = Boolean(slugs.technologySlug)
   let content
-  if (status === 'loading') {
+  if (needsCatalog && status === 'loading') {
     content = <StatusCard isLoading message="Loading study topics…" />
-  } else if (status === 'error') {
+  } else if (needsCatalog && status === 'error') {
     content = <StatusCard isError title="Couldn’t load practice content" message={error} onRetry={retryCatalog} />
   } else if (slugs.technologySlug && !technology) {
     content = <StatusCard title="Technology not found" message="This technology doesn’t exist or may have been renamed." homeLink />
@@ -115,7 +128,6 @@ export function AppLayout() {
         catalogState={catalogState}
         activeTechnologySlug={slugs.technologySlug}
         activeSectionSlug={slugs.sectionSlug}
-        isHome={pathname === '/'}
         isOpen={isNavOpen}
         onClose={() => setIsNavOpen(false)}
       />
@@ -133,7 +145,15 @@ export function AppLayout() {
           >
             <Menu size={18} />
           </button>
-          <Breadcrumbs slugs={slugs} technology={technology} section={section} topic={topic} />
+          <Breadcrumbs pathname={pathname} slugs={slugs} technology={technology} section={section} topic={topic} />
+          <nav className="topbar-links" aria-label="Pages">
+            {topbarLinks.map(({ to, label, icon: Icon }) => (
+              <NavLink key={to} to={to} className={({ isActive }) => `topbar-link ${isActive ? 'active' : ''}`}>
+                <Icon size={17} aria-hidden="true" />
+                <span>{label}</span>
+              </NavLink>
+            ))}
+          </nav>
           <button
             className="icon-button theme-toggle"
             type="button"
@@ -144,6 +164,7 @@ export function AppLayout() {
             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
           </button>
         </header>
+        {pathname === '/' && <AnnouncementBar />}
         <main className={`content ${topic ? 'content-split' : ''}`} ref={contentRef}>{content}</main>
       </div>
     </div>
