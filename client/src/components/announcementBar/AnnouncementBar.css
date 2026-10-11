@@ -1,21 +1,13 @@
 /* Full-width strip directly under the top bar on the home page. */
 .announcement-bar {
-    --announce-bg: #fef3c7;
-    --announce-text: #1c1917;
-
     flex: none;
     overflow: hidden;
     padding: 10px 0;
-    border-bottom: 1px solid rgb(180 83 9 / 15%);
-    color: var(--announce-text);
-    background: var(--announce-bg);
+    border-bottom: 1px solid var(--button-hover);
+    color: var(--button-text);
+    background: var(--button-bg);
     font-size: 14.5px;
     font-weight: 500;
-}
-
-:root[data-theme='dark'] .announcement-bar {
-    --announce-bg: #3b2f0b;
-    --announce-text: #fde68a;
 }
 
 .announcement-track {

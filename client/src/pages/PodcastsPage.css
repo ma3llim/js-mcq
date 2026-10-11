@@ -178,7 +178,7 @@
 }
 
 .episode-card:hover .episode-play svg {
-    background: #dc2626;
+    background: var(--accent);
 }
 
 @keyframes podcast-open {

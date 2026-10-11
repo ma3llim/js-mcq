@@ -51,9 +51,9 @@
 }
 
 .stat-pill-icon.tone-red { color: #ef4444; }
-.stat-pill-icon.tone-blue { color: #2563eb; }
+.stat-pill-icon.tone-blue { color: #0a66c2; }
 .stat-pill-icon.tone-pink { color: #ec4899; }
-.stat-pill-icon.tone-purple { color: #9333ea; }
+.stat-pill-icon.tone-purple { color: var(--accent); }
 .stat-pill-icon.tone-green { color: #16a34a; }
 .stat-pill-icon.tone-neutral { color: var(--site-text); }
 

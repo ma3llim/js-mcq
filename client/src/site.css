@@ -14,10 +14,11 @@
     --site-brand: var(--accent);
     --site-brand-hover: var(--accent-hover);
     --site-brand-soft: var(--accent-soft);
-    --site-indigo: #6366f1;
-    --site-indigo-text: #4f46e5;
-    --site-announce-bg: #fef3c7;
-    --site-announce-text: #1c1917;
+    /* Highlights use the app's blue accent; the yellow comes from its primary buttons. */
+    --site-indigo: var(--accent);
+    --site-indigo-text: var(--accent-text);
+    --site-announce-bg: var(--button-bg);
+    --site-announce-text: var(--button-text);
     --site-shadow: var(--shadow);
     --site-shadow-lg: 0 20px 25px -5px rgb(15 23 42 / 10%), 0 8px 10px -6px rgb(15 23 42 / 8%);
     --site-radius: 16px;
@@ -29,10 +30,6 @@
 }
 
 :root[data-theme='dark'] .site {
-    --site-indigo: #818cf8;
-    --site-indigo-text: #a5b4fc;
-    --site-announce-bg: #3b2f0b;
-    --site-announce-text: #fde68a;
     --site-shadow-lg: 0 20px 40px rgb(0 0 0 / 45%);
 }
 
@@ -93,17 +90,18 @@
     padding: 0 22px;
     border: 0;
     border-radius: 10px;
-    color: var(--bg);
-    background: var(--site-text);
+    color: var(--button-text);
+    background: var(--button-bg);
     font: inherit;
     font-size: 15px;
     font-weight: 600;
     text-decoration: none;
     cursor: pointer;
-    transition: transform 200ms ease;
+    transition: background 150ms ease, transform 200ms ease;
 }
 
 .site-button:hover {
+    background: var(--button-hover);
     transform: translateY(-1px);
 }
 
